@@ -3,23 +3,34 @@
 <div id="post-form">
   <form action="/posts" method="post">
     <div>
-      <textarea name="body"></textarea>
+      <textarea name="url" placeholder="Image URL (optional)"></textarea> 
     </div>
     <div>
-      <input type="submit" value="Post">
+      <textarea name="body" placeholder="You know you want to type here"></textarea>
+    </div>
+    <div>
+      <input type="submit" value="CLICK HERE AFTER YOU TYPE STUFF IN OMG">
     </div>
   </form>
 </div>
 <ol class="post-list">
   <% posts.each do |post| %>
-    <li>
+    <li class="post">
       <!-- Read http://www.ruby-doc.org/core-2.1.1/Time.html#method-i-strftime 
            for information about how this strftime voodoo works -->
       <p><%= post.created_at.strftime('%A, %B %-d, %Y') %></p>
       <!-- What does "escape" do here?  What happens if you remove it? -->
       <!-- Try creating a post that contains HTML and see how that post looks
            with and without the call to escape() -->
+      <% unless post.url.nil? %>
+        <img src="<%= post.url %>">
+      <% end %>  
+
+      <% unless post.body.nil? %>
       <p><%= escape(post.body) %></p>
+      <% end %>
+
+
     </li>
   <% end %>
 </ol>
